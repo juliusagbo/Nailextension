@@ -1,5 +1,9 @@
 FROM php:8.4-cli AS vendor
 WORKDIR /app
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends git unzip libzip-dev libicu-dev libonig-dev libxml2-dev \
+    && docker-php-ext-install mbstring intl zip dom \
+    && rm -rf /var/lib/apt/lists/*
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 COPY composer.json composer.lock ./
 RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
@@ -16,8 +20,8 @@ FROM php:8.2-apache
 WORKDIR /var/www/html
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends git unzip libzip-dev libsqlite3-dev sqlite3 \
-    && docker-php-ext-install pdo pdo_sqlite zip \
+    && apt-get install -y --no-install-recommends git unzip libzip-dev libsqlite3-dev sqlite3 libicu-dev libonig-dev libxml2-dev \
+    && docker-php-ext-install pdo pdo_sqlite zip mbstring intl dom \
     && a2enmod rewrite \
     && rm -rf /var/lib/apt/lists/*
 
