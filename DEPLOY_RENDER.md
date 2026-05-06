@@ -1,13 +1,13 @@
 # Deploy on Render (Laravel)
 
-This project includes `render.yaml` so Render can deploy it as a live site.
+This project includes `render.yaml` and a `Dockerfile` so Render can deploy it as a live Laravel site.
 
 ## 1) Create service from GitHub repo
 
 1. Open [https://render.com](https://render.com) and sign in.
 2. Click **New** -> **Blueprint**.
 3. Connect GitHub and select this repository.
-4. Render will detect `render.yaml` and create `nailextension-web`.
+4. Render will detect `render.yaml` and create `nailextension-web` with Docker runtime.
 
 ## 2) Set required environment variables
 
@@ -24,10 +24,9 @@ php artisan key:generate --show
 
 Click **Deploy latest commit**.
 
-Render will:
-- install Composer and Node dependencies
-- build Vite assets
-- create SQLite database at `/var/data/database.sqlite`
+Render will build the Docker image, then app startup will:
+- apply your environment values
+- create SQLite database at `database/database.sqlite`
 - run migrations
 
 ## 4) Verify live site
