@@ -1,0 +1,155 @@
+NAILED BY VIA - DATABASE ERD QUICK REFERENCE
+===============================================
+
+📁 ERD FILE LOCATION: database/ERD_Nailed_by_Via.drawio
+📖 DOCUMENTATION: database/ERD_DOCUMENTATION.md
+
+🗄️ DATABASE STRUCTURE (10 Tables)
+==================================
+
+MAIN BUSINESS TABLES (7):
+-------------------------
+
+1. USERS (🔵 Blue)
+   ├─ id (PK)
+   ├─ email (UK)
+   ├─ name, password, role
+   ├─ phone, address, status
+   └─ profile_picture, notes
+   └─ Relationships: 1→N appointments, favorites, activity_logs, sessions
+                   1→1 password_reset_tokens
+
+2. SERVICES (🟣 Purple)
+   ├─ id (PK)
+   ├─ name, description, price
+   ├─ duration_minutes, category
+   ├─ location_type, status
+   └─ image_url
+   └─ Relationships: 1→N appointments, favorites
+
+3. APPOINTMENTS (🟢 Green)
+   ├─ id (PK)
+   ├─ user_id (FK→users)
+   ├─ service_id (FK→services)
+   ├─ appointment_date, location_type
+   ├─ customer_address, amount
+   ├─ status, payment_status
+   └─ notes
+   └─ Relationships: N→1 users, services
+
+4. FAVORITES (🟠 Orange)
+   ├─ id (PK)
+   ├─ user_id (FK→users)
+   ├─ service_id (FK→services)
+   └─ Unique constraint: (user_id, service_id)
+   └─ Relationships: N→1 users, services
+
+5. GALLERIES (🩷 Pink)
+   ├─ id (PK)
+   ├─ title, description
+   ├─ image_path, alt_text
+   ├─ category, is_featured
+   ├─ sort_order, is_active
+   └─ (Standalone table)
+
+6. ACTIVITY_LOGS (🟢 Green)
+   ├─ id (PK)
+   ├─ user_id (FK→users, nullable)
+   ├─ user_type, user_name, user_role
+   ├─ action, details
+   ├─ ip_address, user_agent
+   ├─ model_type, model_id
+   ├─ old_values (JSON), new_values (JSON)
+   └─ Relationships: N→1 users (optional)
+
+7. SETTINGS (🟡 Yellow)
+   ├─ id (PK)
+   ├─ key (UK)
+   ├─ value, type, description
+   └─ (Standalone table)
+
+SYSTEM TABLES (3):
+------------------
+
+8. CACHE (🔵 Light Blue)
+   ├─ key (PK)
+   ├─ value, expiration
+
+9. JOBS (🔵 Light Blue)
+   ├─ id (PK)
+   ├─ queue, payload, attempts
+   ├─ reserved_at, available_at, created_at
+
+10. PASSWORD_RESET_TOKENS (🔵 Light Blue)
+    ├─ email (PK)
+    ├─ token, created_at
+    └─ Relationships: 1→1 users (email)
+
+11. SESSIONS (🔵 Light Blue)
+    ├─ id (PK)
+    ├─ user_id (FK→users, nullable)
+    ├─ payload, last_activity
+    └─ Relationships: N→1 users (optional)
+
+🔗 RELATIONSHIP SUMMARY:
+========================
+
+CORE RELATIONSHIPS:
+-------------------
+Users 1→N Appointments    (One user, many appointments)
+Users 1→N Favorites       (One user, many favorites)
+Users 1→N Activity Logs   (One user, many activities)
+Users 1→N Sessions        (One user, many sessions)
+Users 1→1 Reset Tokens    (One user, one reset token)
+
+Services 1→N Appointments (One service, many appointments)
+Services 1→N Favorites    (One service, many favorites)
+
+BUSINESS FLOW:
+--------------
+1. User Registration → users table
+2. Browse Services → services table  
+3. Book Appointment → appointments table
+4. Add to Favorites → favorites table
+5. View Gallery → galleries table
+6. Admin Activity → activity_logs table
+7. System Settings → settings table
+
+🎨 COLOR CODING:
+================
+🔵 Blue = Users and related tables
+🟣 Purple = Services and related tables  
+🟢 Green = Appointments and activity logs
+🟠 Orange = Favorites
+🩷 Pink = Galleries
+🟡 Yellow = Settings
+🔵 Light Blue = System tables
+
+📊 KEY STATISTICS:
+==================
+Total Tables: 10
+Main Entities: 7
+System Tables: 3
+Primary Relationships: 7
+Foreign Keys: 6
+Unique Constraints: 3
+
+🔧 TECHNICAL FEATURES:
+======================
+- SQLite Database
+- Laravel Framework
+- Cascade Delete on FKs
+- JSON fields for complex data
+- Composite unique constraints
+- Comprehensive indexing
+- Audit trail via activity_logs
+
+📋 HOW TO USE:
+==============
+1. Open: database/ERD_Nailed_by_Via.drawio
+2. Use Draw.io (app.diagrams.net)
+3. View, edit, export as needed
+4. Reference: database/ERD_DOCUMENTATION.md
+
+🚀 READY TO USE!
+Your ERD is complete and ready for development, documentation, and team collaboration!

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2024-01-15T10:00:00.000Z" agent="5.0" etag="xxx" version="22.1.16" type="device">
+  <diagram name="Nailed by Via - Database ERD" id="nailed-by-via-erd">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Title -->
+        <mxCell id="title" value="Nailed by Via - Database Entity Relationship Diagram" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24;fontStyle=1;fontColor=#2F4F4F;" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="400" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- Users Table -->
+        <mxCell id="users-table" value="&lt;b&gt;users&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;PK:&lt;/b&gt; id (BIGINT)&lt;br&gt;&lt;b&gt;UK:&lt;/b&gt; email&lt;br&gt;&lt;br&gt;name (VARCHAR)&lt;br&gt;email (VARCHAR)&lt;br&gt;email_verified_at (TIMESTAMP)&lt;br&gt;password (VARCHAR)&lt;br&gt;phone (VARCHAR)&lt;br&gt;address (VARCHAR)&lt;br&gt;role (VARCHAR) DEFAULT 'customer'&lt;br&gt;status (VARCHAR) DEFAULT 'active'&lt;br&gt;notes (TEXT)&lt;br&gt;profile_picture (VARCHAR)&lt;br&gt;remember_token (VARCHAR)&lt;br&gt;created_at (TIMESTAMP)&lt;br&gt;updated_at (TIMESTAMP)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#E1F5FE;strokeColor=#01579B;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="50" y="100" width="250" height="300" as="geometry" />
+        </mxCell>
+        
+        <!-- Services Table -->
+        <mxCell id="services-table" value="&lt;b&gt;services&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;PK:&lt;/b&gt; id (BIGINT)&lt;br&gt;&lt;br&gt;name (VARCHAR)&lt;br&gt;description (TEXT)&lt;br&gt;price (DECIMAL 8,2)&lt;br&gt;duration_minutes (INTEGER)&lt;br&gt;category (VARCHAR)&lt;br&gt;location_type (VARCHAR)&lt;br&gt;status (VARCHAR) DEFAULT 'active'&lt;br&gt;image_url (VARCHAR)&lt;br&gt;created_at (TIMESTAMP)&lt;br&gt;updated_at (TIMESTAMP)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#F3E5F5;strokeColor=#4A148C;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="350" y="100" width="250" height="280" as="geometry" />
+        </mxCell>
+        
+        <!-- Appointments Table -->
+        <mxCell id="appointments-table" value="&lt;b&gt;appointments&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;PK:&lt;/b&gt; id (BIGINT)&lt;br&gt;&lt;b&gt;FK:&lt;/b&gt; user_id → users.id&lt;br&gt;&lt;b&gt;FK:&lt;/b&gt; service_id → services.id&lt;br&gt;&lt;br&gt;appointment_date (DATETIME)&lt;br&gt;location_type (VARCHAR)&lt;br&gt;customer_address (VARCHAR)&lt;br&gt;amount (DECIMAL 8,2)&lt;br&gt;status (VARCHAR) DEFAULT 'pending'&lt;br&gt;payment_status (VARCHAR) DEFAULT 'pending'&lt;br&gt;notes (TEXT)&lt;br&gt;created_at (TIMESTAMP)&lt;br&gt;updated_at (TIMESTAMP)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#E8F5E8;strokeColor=#2E7D32;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="650" y="100" width="250" height="300" as="geometry" />
+        </mxCell>
+        
+        <!-- Favorites Table -->
+        <mxCell id="favorites-table" value="&lt;b&gt;favorites&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;PK:&lt;/b&gt; id (BIGINT)&lt;br&gt;&lt;b&gt;FK:&lt;/b&gt; user_id → users.id&lt;br&gt;&lt;b&gt;FK:&lt;/b&gt; service_id → services.id&lt;br&gt;&lt;b&gt;UK:&lt;/b&gt; (user_id, service_id)&lt;br&gt;&lt;br&gt;created_at (TIMESTAMP)&lt;br&gt;updated_at (TIMESTAMP)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#FFF3E0;strokeColor=#E65100;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="200" y="450" width="250" height="180" as="geometry" />
+        </mxCell>
+        
+        <!-- Galleries Table -->
+        <mxCell id="galleries-table" value="&lt;b&gt;galleries&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;PK:&lt;/b&gt; id (BIGINT)&lt;br&gt;&lt;br&gt;title (VARCHAR)&lt;br&gt;description (TEXT)&lt;br&gt;image_path (VARCHAR)&lt;br&gt;alt_text (VARCHAR)&lt;br&gt;category (VARCHAR) DEFAULT 'nail_extension'&lt;br&gt;is_featured (BOOLEAN) DEFAULT false&lt;br&gt;sort_order (INTEGER) DEFAULT 0&lt;br&gt;is_active (BOOLEAN) DEFAULT true&lt;br&gt;created_at (TIMESTAMP)&lt;br&gt;updated_at (TIMESTAMP)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#FCE4EC;strokeColor=#880E4F;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="500" y="450" width="250" height="280" as="geometry" />
+        </mxCell>
+        
+        <!-- Activity Logs Table -->
+        <mxCell id="activity-logs-table" value="&lt;b&gt;activity_logs&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;PK:&lt;/b&gt; id (BIGINT)&lt;br&gt;&lt;b&gt;FK:&lt;/b&gt; user_id → users.id (nullable)&lt;br&gt;&lt;br&gt;user_type (VARCHAR) - 'admin' or 'customer'&lt;br&gt;user_name (VARCHAR)&lt;br&gt;user_role (VARCHAR)&lt;br&gt;action (VARCHAR)&lt;br&gt;details (TEXT)&lt;br&gt;ip_address (VARCHAR)&lt;br&gt;user_agent (VARCHAR)&lt;br&gt;model_type (VARCHAR)&lt;br&gt;model_id (BIGINT)&lt;br&gt;old_values (JSON)&lt;br&gt;new_values (JSON)&lt;br&gt;created_at (TIMESTAMP)&lt;br&gt;updated_at (TIMESTAMP)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#F1F8E9;strokeColor=#33691E;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="800" y="450" width="250" height="320" as="geometry" />
+        </mxCell>
+        
+        <!-- Settings Table -->
+        <mxCell id="settings-table" value="&lt;b&gt;settings&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;PK:&lt;/b&gt; id (BIGINT)&lt;br&gt;&lt;b&gt;UK:&lt;/b&gt; key&lt;br&gt;&lt;br&gt;key (VARCHAR) - Setting name&lt;br&gt;value (TEXT) - Setting value&lt;br&gt;type (VARCHAR) DEFAULT 'string'&lt;br&gt;description (TEXT)&lt;br&gt;created_at (TIMESTAMP)&lt;br&gt;updated_at (TIMESTAMP)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#FFF8E1;strokeColor=#F57F17;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="50" y="450" width="250" height="200" as="geometry" />
+        </mxCell>
+        
+        <!-- Cache Table -->
+        <mxCell id="cache-table" value="&lt;b&gt;cache&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;PK:&lt;/b&gt; key (VARCHAR)&lt;br&gt;&lt;b&gt;UK:&lt;/b&gt; key&lt;br&gt;&lt;br&gt;key (VARCHAR)&lt;br&gt;value (MEDIUMTEXT)&lt;br&gt;expiration (INTEGER)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#E0F2F1;strokeColor=#00695C;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="50" y="700" width="200" height="120" as="geometry" />
+        </mxCell>
+        
+        <!-- Jobs Table -->
+        <mxCell id="jobs-table" value="&lt;b&gt;jobs&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;PK:&lt;/b&gt; id (BIGINT)&lt;br&gt;&lt;b&gt;UK:&lt;/b&gt; id&lt;br&gt;&lt;br&gt;id (BIGINT)&lt;br&gt;queue (VARCHAR)&lt;br&gt;payload (LONGTEXT)&lt;br&gt;attempts (TINYINT)&lt;br&gt;reserved_at (INTEGER)&lt;br&gt;available_at (INTEGER)&lt;br&gt;created_at (INTEGER)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#EFEBE9;strokeColor=#3E2723;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="300" y="700" width="200" height="160" as="geometry" />
+        </mxCell>
+        
+        <!-- Password Reset Tokens Table -->
+        <mxCell id="password-reset-tokens-table" value="&lt;b&gt;password_reset_tokens&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;PK:&lt;/b&gt; email (VARCHAR)&lt;br&gt;&lt;b&gt;FK:&lt;/b&gt; email → users.email&lt;br&gt;&lt;br&gt;email (VARCHAR)&lt;br&gt;token (VARCHAR)&lt;br&gt;created_at (TIMESTAMP)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#E3F2FD;strokeColor=#0D47A1;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="550" y="700" width="200" height="120" as="geometry" />
+        </mxCell>
+        
+        <!-- Sessions Table -->
+        <mxCell id="sessions-table" value="&lt;b&gt;sessions&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;PK:&lt;/b&gt; id (VARCHAR)&lt;br&gt;&lt;b&gt;FK:&lt;/b&gt; user_id → users.id (nullable)&lt;br&gt;&lt;br&gt;id (VARCHAR)&lt;br&gt;user_id (BIGINT)&lt;br&gt;ip_address (VARCHAR)&lt;br&gt;user_agent (TEXT)&lt;br&gt;payload (LONGTEXT)&lt;br&gt;last_activity (INTEGER)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#F9FBE7;strokeColor=#827717;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="800" y="700" width="200" height="160" as="geometry" />
+        </mxCell>
+        
+        <!-- Relationship Lines -->
+        
+        <!-- Users to Appointments -->
+        <mxCell id="users-appointments-rel" value="1:N" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#1976D2;strokeWidth=2;" edge="1" parent="1" source="users-table" target="appointments-table">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="300" y="250" as="sourcePoint" />
+            <mxPoint x="650" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Services to Appointments -->
+        <mxCell id="services-appointments-rel" value="1:N" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#7B1FA2;strokeWidth=2;" edge="1" parent="1" source="services-table" target="appointments-table">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="600" y="240" as="sourcePoint" />
+            <mxPoint x="650" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Users to Favorites -->
+        <mxCell id="users-favorites-rel" value="1:N" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#1976D2;strokeWidth=2;" edge="1" parent="1" source="users-table" target="favorites-table">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="175" y="400" as="sourcePoint" />
+            <mxPoint x="325" y="450" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Services to Favorites -->
+        <mxCell id="services-favorites-rel" value="1:N" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#7B1FA2;strokeWidth=2;" edge="1" parent="1" source="services-table" target="favorites-table">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="475" y="380" as="sourcePoint" />
+            <mxPoint x="325" y="450" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Users to Activity Logs -->
+        <mxCell id="users-activity-logs-rel" value="1:N" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#1976D2;strokeWidth=2;" edge="1" parent="1" source="users-table" target="activity-logs-table">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="300" y="400" as="sourcePoint" />
+            <mxPoint x="800" y="610" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Users to Password Reset Tokens -->
+        <mxCell id="users-password-reset-rel" value="1:1" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#1976D2;strokeWidth=2;" edge="1" parent="1" source="users-table" target="password-reset-tokens-table">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="175" y="400" as="sourcePoint" />
+            <mxPoint x="650" y="700" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Users to Sessions -->
+        <mxCell id="users-sessions-rel" value="1:N" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#1976D2;strokeWidth=2;" edge="1" parent="1" source="users-table" target="sessions-table">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="300" y="400" as="sourcePoint" />
+            <mxPoint x="800" y="780" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Legend -->
+        <mxCell id="legend" value="&lt;b&gt;Legend:&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;PK&lt;/b&gt; = Primary Key&lt;br&gt;&lt;b&gt;FK&lt;/b&gt; = Foreign Key&lt;br&gt;&lt;b&gt;UK&lt;/b&gt; = Unique Key&lt;br&gt;&lt;br&gt;&lt;b&gt;Relationship Types:&lt;/b&gt;&lt;br&gt;1:1 = One to One&lt;br&gt;1:N = One to Many&lt;br&gt;&lt;br&gt;&lt;b&gt;Colors:&lt;/b&gt;&lt;br&gt;🔵 Users &amp; Related&lt;br&gt;🟣 Services &amp; Related&lt;br&gt;🟢 Appointments&lt;br&gt;🟠 Favorites&lt;br&gt;🩷 Galleries&lt;br&gt;🟢 Activity Logs&lt;br&gt;🟡 Settings&lt;br&gt;🔵 System Tables" style="text;html=1;strokeColor=#666666;fillColor=#F5F5F5;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize=12;fontStyle=0;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="100" width="200" height="280" as="geometry" />
+        </mxCell>
+        
+        <!-- System Info -->
+        <mxCell id="system-info" value="&lt;b&gt;System Information:&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;Database:&lt;/b&gt; SQLite&lt;br&gt;&lt;b&gt;Framework:&lt;/b&gt; Laravel&lt;br&gt;&lt;b&gt;Total Tables:&lt;/b&gt; 10&lt;br&gt;&lt;b&gt;Main Entities:&lt;/b&gt; 7&lt;br&gt;&lt;b&gt;System Tables:&lt;/b&gt; 3&lt;br&gt;&lt;br&gt;&lt;b&gt;Key Features:&lt;/b&gt;&lt;br&gt;• User Management&lt;br&gt;• Service Catalog&lt;br&gt;• Appointment Booking&lt;br&gt;• Favorites System&lt;br&gt;• Gallery Management&lt;br&gt;• Activity Logging&lt;br&gt;• Settings Management&lt;br&gt;• Session Management&lt;br&gt;• Queue System&lt;br&gt;• Caching System" style="text;html=1;strokeColor=#666666;fillColor=#E8F5E8;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize=12;fontStyle=0;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="400" width="200" height="420" as="geometry" />
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
