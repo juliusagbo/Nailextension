@@ -1,0 +1,43 @@
+services:
+  - type: web
+    name: nailextension-web
+    runtime: php
+    plan: free
+    rootDir: .
+    buildCommand: |
+      composer install --no-dev --optimize-autoloader
+      npm ci
+      npm run build
+      php artisan config:clear
+      php artisan cache:clear
+      php artisan view:clear
+    startCommand: php -S 0.0.0.0:$PORT -t public
+    preDeployCommand: |
+      mkdir -p /var/data
+      touch /var/data/database.sqlite
+      php artisan migrate --force
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: APP_URL
+        sync: false
+      - key: APP_KEY
+        sync: false
+      - key: DB_CONNECTION
+        value: sqlite
+      - key: DB_DATABASE
+        value: /var/data/database.sqlite
+      - key: LOG_CHANNEL
+        value: stderr
+      - key: SESSION_DRIVER
+        value: file
+      - key: CACHE_STORE
+        value: file
+      - key: QUEUE_CONNECTION
+        value: sync
+    disks:
+      - name: nailextension-data
+        mountPath: /var/data
+        sizeGB: 1
