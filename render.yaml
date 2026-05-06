@@ -1,7 +1,7 @@
 services:
   - type: web
     name: nailextension-web
-    runtime: php
+    env: php
     plan: free
     rootDir: .
     buildCommand: |
@@ -37,7 +37,7 @@ services:
         value: file
       - key: QUEUE_CONNECTION
         value: sync
-    disks:
-      - name: nailextension-data
-        mountPath: /var/data
-        sizeGB: 1
+    disk:
+      name: nailextension-data
+      mountPath: /var/data
+      sizeGB: 1
